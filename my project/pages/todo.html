@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>To-Do List – My Skills Playground</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .todo-container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 20px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px var(--shadow);
+      animation: slideUp 0.7s ease;
+    }
+
+    .todo-container h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    #taskInput {
+      width: 70%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    button {
+      margin-left: 10px;
+      padding: 10px 14px;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #f4f4f4;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 4px var(--shadow);
+      transition: 0.3s;
+      animation: fadeIn 0.5s ease;
+    }
+
+    li:hover {
+      background: #eaeaea;
+      transform: scale(1.01);
+    }
+
+    .actions button {
+      margin-left: 8px;
+      background: #999;
+      padding: 6px 10px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+
+    .actions button:hover {
+      background: var(--accent);
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>To-Do List</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="todo.html">To-Do</a></li>
+        <li><a href="canvas.html">Canvas</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav><br />
+     <button id="themeToggle">Toggle Theme</button>
+    <button data-open-modal>Learn More</button>
+
+  </header>
+
+  <main class="todo-container">
+    <h2>Manage Your Tasks</h2>
+    <input type="text" id="taskInput" placeholder="Enter a task" />
+    <button onclick="addTask()">Add</button>
+    <ul id="taskList"></ul>
+  </main>
+
+  <script>
+    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    let editIndex = -1;
+
+    function displayTasks() {
+      const list = document.getElementById("taskList");
+      list.innerHTML = "";
+      tasks.forEach((task, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+          ${task}
+          <div class="actions">
+            <button onclick="editTask(${index})">Edit</button>
+            <button onclick="deleteTask(${index})">Delete</button>
+          </div>
+        `;
+        list.appendChild(li);
+      });
+    }
+
+    function addTask() {
+      const input = document.getElementById("taskInput");
+      const value = input.value.trim();
+      if (value === "") return;
+
+      if (editIndex >= 0) {
+        tasks[editIndex] = value;
+        editIndex = -1;
+      } else {
+        tasks.push(value);
+      }
+
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      input.value = "";
+      displayTasks();
+    }
+
+    function deleteTask(index) {
+      tasks.splice(index, 1);
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+      displayTasks();
+    }
+
+    function editTask(index) {
+      document.getElementById("taskInput").value = tasks[index];
+      editIndex = index;
+    }
+
+    displayTasks();
+  </script>
+ <!-- Modal HTML -->
+  <div id="modalOverlay" class="modal-overlay" hidden>
+    <div class="modal">
+      <button class="close">&times;</button>
+      <h2>Reusable Modal</h2>
+      <p>I can open this from anywhere!!</p>
+    </div>
+  </div>
+
+</body>
+</html>

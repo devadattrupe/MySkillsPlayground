@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gallery – My Skills Playground</title>
+  <script defer src="../js/main.js"></script>
+  <link rel="stylesheet" href="../css/main.css" />
+  <style>
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      padding: 20px;
+      animation: fadeIn 1s ease-in;
+    }
+
+    figure {
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px var(--shadow);
+      background: var(--card-bg);
+      transition: transform 0.3s;
+    }
+
+    figure:hover {
+      transform: scale(1.03);
+    }
+
+    figure img {
+      width: 100%;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    figure:hover img {
+      transform: scale(1.05);
+    }
+
+    figure figcaption {
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+
+    .download-btn {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: var(--accent);
+      color: white;
+      padding: 6px 10px;
+      font-size: 12px;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background: var(--primary);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeIn 0.4s ease-in;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #000;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Gallery</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="todo.html">To-Do</a></li>
+        <li><a href="canvas.html">Canvas</a></li>
+      </ul>
+    </nav><br />
+    <button id="themeToggle">Toggle Theme</button>
+    <button data-open-modal>Learn More</button>
+
+  </header>
+
+  <main>
+    <section class="gallery">
+      <figure>
+        <img src="../images/river.jpg" alt="River View" />
+        <figcaption>River View</figcaption>
+        <a class="download-btn" href="../images/river.jpg" download>Download</a>
+      </figure>
+
+      <figure>
+        <img src="../images/bike.jpg" alt="Bike Ride" />
+        <figcaption>Bike Ride</figcaption>
+        <a class="download-btn" href="../images/bike.jpg" download>Download</a>
+      </figure>
+
+      <figure>
+        <img src="../images/sunset.jpg" alt="Sunset Over Hills" />
+        <figcaption>Sunset View</figcaption>
+        <a class="download-btn" href="../images/sunset.jpg" download>Download</a>
+      </figure>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <img src="" alt="Preview" />
+  </div>
+
+  <script>
+    const lightbox = document.getElementById("lightbox");
+    const lightboxImg = lightbox.querySelector("img");
+
+    document.querySelectorAll(".gallery img").forEach(img => {
+      img.addEventListener("click", () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add("active");
+      });
+    });
+
+    lightbox.addEventListener("click", () => {
+      lightbox.classList.remove("active");
+      lightboxImg.src = "";
+    });
+  </script>
+ <!-- Modal HTML -->
+  <div id="modalOverlay" class="modal-overlay" hidden>
+    <div class="modal">
+      <button class="close">&times;</button>
+      <h2>Reusable Modal</h2>
+      <p>I can open this from anywhere!!</p>
+    </div>
+  </div>
+
+</body>
+</html>

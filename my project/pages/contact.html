@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – My Skills Playground</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .contact-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px var(--shadow);
+      animation: slideUp 0.7s ease;
+    }
+
+    .contact-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: 600;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      margin-bottom: 15px;
+      background: #fff;
+      color: #000;
+      font-size: 15px;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 4px var(--primary);
+    }
+
+    #submitBtn {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+    }
+
+    #thankyou {
+      display: none;
+      color: green;
+      font-weight: bold;
+      margin-top: 10px;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Contact Us</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="todo.html">To-Do</a></li>
+      </ul>
+    </nav><br/>
+    <button id="themeToggle">Toggle Theme</button>
+    <button data-open-modal>Learn More</button>
+  </header>
+
+  <main>
+    <section class="contact-container">
+      <h2>Get in Touch</h2>
+      <form id="contactForm">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="message">Message *</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button id="submitBtn" type="submit">Send Message</button>
+        <p id="thankyou">Thank you! We'll get back to you soon.</p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      document.getElementById("thankyou").style.display = "block";
+      this.reset();
+    });
+  </script>
+  
+  <!-- Modal HTML -->
+  <div id="modalOverlay" class="modal-overlay" hidden>
+    <div class="modal">
+      <button class="close">&times;</button>
+      <h2>Reusable Modal</h2>
+      <p>I can open this from anywhere!!</p>
+    </div>
+  </div>
+
+</body>
+</html>
+
+

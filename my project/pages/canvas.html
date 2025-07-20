@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Canvas Drawing – My Skills Playground</title>
+  <link rel="stylesheet" href="../css/main.css" />
+  <script defer src="../js/main.js"></script>
+  <style>
+    .canvas-wrapper {
+      max-width: 600px;
+      margin: 50px auto;
+      text-align: center;
+      padding: 30px;
+      background: var(--card-bg);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px var(--shadow);
+      animation: fadeIn 1s ease;
+    }
+
+    canvas {
+      border: 2px solid var(--text);
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px var(--shadow);
+      margin-bottom: 20px;
+      cursor: crosshair;
+    }
+
+    #clearBtn {
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    #clearBtn:hover {
+      background: var(--accent);
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Canvas Drawing</h1>
+    <nav>
+      <ul>
+        <li><a href="../index.html">Home</a></li>
+        <li><a href="canvas.html">Canvas</a></li>
+        <li><a href="todo.html">To-Do</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+      </ul>
+    </nav>
+    <br/>
+     <button id="themeToggle">Toggle Theme</button>
+    <button data-open-modal>Learn More</button>
+  </header>
+
+  <main>
+    <div class="canvas-wrapper">
+      <h2>Draw with Mouse</h2>
+      <canvas id="drawCanvas" width="500" height="400"></canvas><br>
+      <button id="clearBtn">Clear</button>
+    </div>
+  </main>
+
+  <script>
+    const canvas = document.getElementById("drawCanvas");
+    const ctx = canvas.getContext("2d");
+    let isDrawing = false;
+
+    canvas.addEventListener("mousedown", (e) => {
+      isDrawing = true;
+      ctx.beginPath();
+      ctx.moveTo(e.offsetX, e.offsetY);
+    });
+
+    canvas.addEventListener("mousemove", (e) => {
+      if (!isDrawing) return;
+      ctx.lineTo(e.offsetX, e.offsetY);
+      ctx.stroke();
+    });
+
+    canvas.addEventListener("mouseup", () => {
+      isDrawing = false;
+    });
+
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+  </script>
+
+  <!-- Modal HTML -->
+  <div id="modalOverlay" class="modal-overlay" hidden>
+    <div class="modal">
+      <button class="close">&times;</button>
+      <h2>Reusable Modal</h2>
+      <p>I can open this from anywhere!!</p>
+    </div>
+  </div>
+
+</body>
+</html>
